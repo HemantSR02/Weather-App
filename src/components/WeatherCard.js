@@ -10,7 +10,7 @@ const Weather = () => {
 
   const handleClick = async () => {
     try {
-      const res = await fetch(`http://api.weatherapi.com/v1/current.json?key=7e2ba163c7bd4ff0a6c72150240703&q=${city}&aqi=yes`);
+      const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=7e2ba163c7bd4ff0a6c72150240703&q=${city}&aqi=yes`);
       const responseData = await res.json();
       setData(responseData);
       // console.log(responseData);
