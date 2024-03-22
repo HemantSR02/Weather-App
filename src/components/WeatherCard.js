@@ -1,24 +1,30 @@
 import React from 'react'
 import './WeatherCard.css'
+import Loader from './Loader';
 import { useState } from 'react';
 
 const Weather = () => {
 
   const [city, setCity] = useState("Indore");
   const [data, setData] = useState(null); // Declare data state variable\
+  const [loading,setloading]= useState(false);
+  
 
 
   const handleClick = async () => {
     try {
+      setloading(true);
       const res = await fetch(`https://api.weatherapi.com/v1/current.json?key=7e2ba163c7bd4ff0a6c72150240703&q=${city}&aqi=yes`);
       const responseData = await res.json();
       setData(responseData);
-      // console.log(responseData);
+      setloading(false);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
 
     }
   }
+
 
 
   return (
@@ -37,11 +43,11 @@ const Weather = () => {
           </div>
 
 
-          {data && (
+          {loading?(<Loader/>):(data && (
             <div className='weather-card'>
               {data.error && data.error.code === 1006 ? (
                 <div className='error-message'>
-                  <img src="/images/404.png" alt="404 Error" />
+                  <img src="/404.png" alt="error" />
                   <p>Location Not Found</p>
                 </div>
               ) : (
@@ -67,7 +73,7 @@ const Weather = () => {
                 </>
               )}
             </div>
-          )}
+          ))}
         </div>
       </div>
 
